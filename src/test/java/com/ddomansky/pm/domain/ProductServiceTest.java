@@ -1,6 +1,8 @@
 package com.ddomansky.pm.domain;
 
+import com.ddomansky.pm.fixtures.ProductCategoryFixtures;
 import com.ddomansky.pm.fixtures.ProductFixtures;
+import com.ddomansky.pm.persistence.ProductCategoryEntity;
 import com.ddomansky.pm.persistence.ProductEntity;
 import com.ddomansky.pm.persistence.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
+import static com.ddomansky.pm.fixtures.ProductCategoryFixtures.someProductCategoryEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -41,7 +44,9 @@ class ProductServiceTest {
                 .build();
 
         final PageImpl<ProductEntity> productEntityPage = new PageImpl<>(
-                List.of(ProductFixtures.someProduct().build())
+                List.of(ProductFixtures.someProduct()
+                        .category(someProductCategoryEntity().build())
+                        .build())
         );
 
         Mockito.when(productRepository.findAll(any(Pageable.class)))
@@ -54,5 +59,33 @@ class ProductServiceTest {
         final Product product = products.stream().findFirst().get();
         assertThat(product.getName()).isEqualTo("hammer");
         assertThat(product.getDescription()).isEqualTo("blue hammer");
+        assertThat(product.getCategory().getCategoryName()).isEqualTo("tools");
+    }
+
+    @Test
+    void testNullSortInSearchCriteria() {
+        final SearchCriteria searchCriteria = SearchCriteria.builder()
+                .sort(null)
+                .pageNo(0)
+                .pageSize(2)
+                .build();
+
+        final PageImpl<ProductEntity> productEntityPage = new PageImpl<>(
+                List.of(ProductFixtures.someProduct()
+                        .category(someProductCategoryEntity().build())
+                        .build())
+        );
+
+        Mockito.when(productRepository.findAll(any(Pageable.class)))
+                .thenReturn(productEntityPage);
+
+        //when
+        final Page<Product> products = productService.findProducts(searchCriteria);
+
+        //then
+        final Product product = products.stream().findFirst().get();
+        assertThat(product.getName()).isEqualTo("hammer");
+        assertThat(product.getDescription()).isEqualTo("blue hammer");
+        assertThat(product.getCategory().getCategoryName()).isEqualTo("tools");
     }
 }

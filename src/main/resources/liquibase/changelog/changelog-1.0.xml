@@ -50,4 +50,12 @@
                         minValue="1"
                         incrementBy="1"/>
     </changeSet>
+
+    <changeSet id="changelog-1.1" author="ddomansky">
+        <sqlFile encoding="utf8"
+                 path="./sql/init.sql"
+                 relativeToChangelogFile="true"
+                 stripComments="true"/>
+    </changeSet>
+
 </databaseChangeLog>

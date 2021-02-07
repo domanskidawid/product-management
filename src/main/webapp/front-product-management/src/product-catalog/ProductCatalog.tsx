@@ -54,13 +54,13 @@ const ProductCatalog: React.FC<Props> = (props) => {
     const onPrevious = () => {
         setSearchCriteria({
             ...searchCriteria,
-            pageNo: searchCriteria.pageNo - 1 < 0 ? searchCriteria.pageNo : searchCriteria.pageNo - 1
+            pageNo: searchCriteria.pageNo > 0 ? searchCriteria.pageNo - 1 : searchCriteria.pageNo
         });
     }
     const onNext = () => {
         setSearchCriteria({
             ...searchCriteria,
-            pageNo: searchCriteria.pageNo + 1 >= products.totalPages ? searchCriteria.pageNo : searchCriteria.pageNo + 1
+            pageNo: searchCriteria.pageNo + 1 < products.totalPages ? searchCriteria.pageNo + 1 : searchCriteria.pageNo
         });
     }
 

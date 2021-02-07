@@ -12,33 +12,26 @@ function asProducts(passApi: ProductsResponse): Products {
     return {...passApi}
 }
 
-function toQuery(passApi: ProductsResponse): Products {
-    return {...passApi}
-}
-
-
-export function authenticatedRequest(url: string, init: RequestInit = {}): Promise<Response> {
+function authenticatedRequest(url: string, init: RequestInit = {}): Promise<Response> {
     const headers = {
         ...init.headers,
     };
     return fetch(url, {...init, headers});
 }
 
-export function toPagingSortingQueryParams(searchCriteria: SearchCriteria): QueryParams {
+function toPagingSortingQueryParams(searchCriteria: SearchCriteria): QueryParams {
+    const {pageNo, sortingOption, pageSize} = searchCriteria;
     return [
-        {parameter: 'pageNo', value: searchCriteria.pageNo.toString()},
-        {parameter: 'pageSize', value: searchCriteria.pageSize.toString()},
-        ...(
-            !!searchCriteria.sortingOption.sort
-            && !!searchCriteria.sortingOption.sort.direction
-            && !!searchCriteria.sortingOption.sort.fieldName
-                ? [
-                    {parameter: 'sort', value: searchCriteria.sortingOption.sort.fieldName},
-                    {parameter: 'direction', value: searchCriteria.sortingOption.sort.direction}]
-                : [])
+        {parameter: 'pageNo', value: pageNo.toString()},
+        {parameter: 'pageSize', value: pageSize.toString()},
+        ...(!!sortingOption.sort && !!sortingOption.sort.direction && !!sortingOption.sort.fieldName
+            ? [
+                {parameter: 'sort', value: sortingOption.sort.fieldName},
+                {parameter: 'direction', value: sortingOption.sort.direction}]
+            : [])
     ];
 }
 
-export function toQueryString(queryParams: QueryParams) {
+function toQueryString(queryParams: QueryParams) {
     return queryParams.map(param => [param.parameter, encodeURIComponent(param.value)].join('=')).join('&');
 }

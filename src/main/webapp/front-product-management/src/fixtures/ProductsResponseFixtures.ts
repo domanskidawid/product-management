@@ -1,4 +1,4 @@
-import {ProductsResponse} from '../../api';
+import {ProductsResponse} from '../api';
 
 export const someProductsResponse = (): ProductsResponse => {
     return {

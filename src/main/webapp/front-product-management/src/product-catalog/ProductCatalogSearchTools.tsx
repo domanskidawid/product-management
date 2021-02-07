@@ -54,7 +54,7 @@ const ProductCatalogSearchTools: React.FC<Props> = (props) => {
         <div className="row">
             <div className="flex-column">
                 <Dropdown>
-                    <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
+                    <Dropdown.Toggle variant="outline-primary" id="dropdown-page-size">
                         {searchCriteria.pageSize}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
@@ -67,7 +67,7 @@ const ProductCatalogSearchTools: React.FC<Props> = (props) => {
             </div>
             <div className="col">
                 <Dropdown>
-                    <Dropdown.Toggle variant="outline-primary" id="dropdown-advanced">
+                    <Dropdown.Toggle variant="outline-primary" id="dropdown-sorting">
                         {searchCriteria.sortingOption.label}
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
