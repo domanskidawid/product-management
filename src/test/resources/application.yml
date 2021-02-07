@@ -1,0 +1,17 @@
+spring:
+  liquibase:
+    enabled: false
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  # workaround to hibernate issue with Spring Boot 2.0:
+  # https://hibernate.atlassian.net/browse/HHH-12368
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl.auto: none
+        jdbc.lob.non_contextual_creation: true
+        show_sql: false
+        use_sql_comments: true
+        format_sql: true

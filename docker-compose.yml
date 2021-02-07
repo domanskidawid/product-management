@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  postgres:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: local_product_management
+    volumes:
+      - "./dump.sql:/docker-entrypoint-initdb.d/dump.sql"
+    ports:
+      - 5432:5432

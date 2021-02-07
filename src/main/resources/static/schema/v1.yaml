@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  version: 0.0.1
+  title: Product management
+  description: API definition
+paths:
+  /api/v1/products:
+    get:
+      tags:
+        - products
+      summary: Find products
+      operationId: FindProducts
+      parameters:
+        - name: pageNo
+          in: query
+          description: Requested page number
+          schema:
+            type: integer
+            minimum: 0
+        - name: pageSize
+          in: query
+          description: Requested page size
+          schema:
+            type: integer
+            minimum: 1
+        - name: sort
+          in: query
+          required: false
+          description: The field name for sorting.
+          schema:
+            type: string
+        - name: direction
+          in: query
+          required: false
+          description: The field name for ordering.
+          schema:
+            $ref: '#/components/schemas/Direction'
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+          example: 1
+          description: A unique product indetifier
+        name:
+          type: string
+          example: hammer
+          description: A product name
+        description:
+          type: string
+          description: A product description
+          example: blue hammer
+        categoryId:
+          type: string
+          description: A product's category unique identifier
+          example: 1
+        categoryName:
+          type: string
+          description: A product's category name
+          example: tools
+        creationDate:
+          type: string
+          description: Date of a product creation
+          example: 2020-09-19T22:01:00Z
+        updateDate:
+          type: string
+          description: Date of a product update
+          example: 2020-09-19T22:01:00Z
+        lastPurchasedDate:
+          type: string
+          description: Date of a last product purchased
+          example: 2020-09-19T22:01:00Z
+    Direction:
+      type: string
+      enum:
+        - ASC
+        - DESC
+    ProductResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        totalPages:
+          type: integer
+          description: Amount of all pages
+        totalElements:
+          type: integer
+          format: int64
+          description: Amount of all elements
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Optional error code for reporting purposes
+        id:
+          type: string
+          description: Unique identifier for audit purposes
+        description:
+          type: string
+          description: The description of the error
+    InternalServerErrorResponse:
+      type: object
+      description: A response structure for server error (http 5xx)
+      properties:
+        errorCode:
+          type: string
+          example: errors.internal-server-error
+        errorMessage:
+          type: string
+      required:
+        - errorCode

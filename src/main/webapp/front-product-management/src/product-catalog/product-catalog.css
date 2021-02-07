@@ -1,0 +1,8 @@
+.product-card {
+    min-height: 200px;
+}
+.add-to-basket {
+    margin: 15px 5px;
+    position : absolute;
+    bottom   : 0
+}

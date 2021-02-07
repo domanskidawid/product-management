@@ -1,0 +1,41 @@
+server.port: 8080
+
+spring:
+  application.name: product-managemnet
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/local_product_management
+    username: postgres
+    password: postgres
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - prometheus
+
+logging:
+  level:
+    root: info
+    org.hibernate: info
+    org.hibernate.SQL: info
+    org.springframework: info
+    # suppress https://github.com/pgjdbc/pgjdbc/issues/1102#issuecomment-388620735
+    org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl: error
+    org.zalando.logbook.Logbook: info
+
+logbook:
+  exclude:
+    - /swagger-ui.html
+    - /schema/**
+    - /actuator/**
+    - /webjars/**
+  filter.enabled: true
+  format.style: json
+  write:
+    level: INFO
