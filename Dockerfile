@@ -1,7 +1,4 @@
-FROM openjdk:11.0.2-jre-stretch
-
-VOLUME /tmp
-
-COPY target/crm-*.jar app.jar
-
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM openjdk:11.0.1-jre-slim-stretch
+VOLUME /product-management
+COPY target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
