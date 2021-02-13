@@ -15,21 +15,21 @@ jobs:
         run: mvn clean package -DskipTests
       - name: Testing
         run: mvn surefire:test
-#   frontend:
-#     runs-on: ubuntu-latest
-#     env:
-#       frontend-dictionary: './src/main/webapp/front-product-management'
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Use Node.js 15.x
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: 15.x
-#       - name: Build with NPM
-#         run: npm install
-#         working-directory: ${{env.frontend-dictionary}}
-#       - name: Testng
-#         run: npm test
+  frontend:
+    runs-on: ubuntu-latest
+    env:
+      frontend-dictionary: './src/main/webapp/front-product-management'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 15.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
+      - name: Build with NPM
+        run: npm install
+        working-directory: ${{env.frontend-dictionary}}
+      - name: Testng
+        run: npm test
         working-directory: ${{env.frontend-dictionary}}
   docker:
     name: Publish - Docker Hub
