@@ -26,8 +26,8 @@ jobs:
         with:
           node-version: 15.x
       - name: Build with NPM
-      - run: npm install
+        run: npm install
         working-directory: ${{env.frontend-dictionary}}
       - name: Testng
-      - run: npm test
+        run: npm test
         working-directory: ${{env.frontend-dictionary}}
