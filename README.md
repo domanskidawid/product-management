@@ -1,6 +1,8 @@
 # Product management application
 It's a simple application for product management to demonstrate a nice project organization.
 
+![example workflow name](https://github.com/domanskidawid/product-management/workflows/Product%20managment%20CI/badge.svg)
+
 ## Author's note
 - The tasks I got were pretty easy, so I figured you meant more about organizations, good practices, tests, and clean code.
 - A generated code can be problematic but if you stick to some limitation you can get a lot of benefits
