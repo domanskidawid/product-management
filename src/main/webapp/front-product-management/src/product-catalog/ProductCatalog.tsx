@@ -38,30 +38,15 @@ const ProductCatalog: React.FC<Props> = (props) => {
     }, [searchCriteria])
 
     const onSortingOptionChange = (sortingOption: SortingOption) => {
-        setSearchCriteria({
-            ...searchCriteria,
-            sortingOption,
-            pageNo: 0
-        });
+        setSearchCriteria({...searchCriteria, sortingOption, pageNo: 0});
     }
+
     const onPageSizeChange = (pageSize: number) => {
-        setSearchCriteria({
-            ...searchCriteria,
-            pageSize,
-            pageNo: 0
-        });
+        setSearchCriteria({...searchCriteria, pageSize, pageNo: 0});
     }
-    const onPrevious = () => {
-        setSearchCriteria({
-            ...searchCriteria,
-            pageNo: searchCriteria.pageNo > 0 ? searchCriteria.pageNo - 1 : searchCriteria.pageNo
-        });
-    }
-    const onNext = () => {
-        setSearchCriteria({
-            ...searchCriteria,
-            pageNo: searchCriteria.pageNo + 1 < products.totalPages ? searchCriteria.pageNo + 1 : searchCriteria.pageNo
-        });
+
+    const onPageNoChange = (pageNo: number) => {
+        setSearchCriteria({...searchCriteria, pageNo});
     }
 
     return (<>
@@ -91,7 +76,9 @@ const ProductCatalog: React.FC<Props> = (props) => {
                         </div>
                     ))}
                 </div>
-                <ProductCatalogPagination onNext={onNext} onPrevious={onPrevious} pageNo={searchCriteria.pageNo}/>
+                <ProductCatalogPagination onPageNoChange={onPageNoChange}
+                                          totalPages={products.totalPages}
+                                          pageNo={searchCriteria.pageNo}/>
             </div>
         </>
     );
