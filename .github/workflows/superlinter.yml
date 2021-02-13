@@ -12,17 +12,23 @@ jobs:
         with:
           java-version: '11.0.10'
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn clean package -DskipTests
+      - name: Testing
+        run: mvn surefire:test
   frontend:
     runs-on: ubuntu-latest
+    env:
+      frontend-dictionary: './src/main/webapp/front-product-management'
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 15.x
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 15.x
+      - name: Build with NPM
       - run: npm install
-        working-directory: './src/main/webapp/front-product-management'
+        working-directory: ${{env.frontend-dictionary}}
+      - name: Testng
       - run: npm test
-        working-directory: './src/main/webapp/front-product-management'
+        working-directory: ${{env.frontend-dictionary}}
 
